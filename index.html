@@ -17,7 +17,9 @@ body{background:#070504;color:#e8dcc6;font-family:'Cormorant Garamond',Georgia,s
   repeating-linear-gradient(90deg,rgba(0,0,0,.25) 0 2px,transparent 2px 60px),
   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='160' viewBox='0 0 120 160'%3E%3Cpath d='M60 10c18 24 40 34 40 70s-22 46-40 70c-18-24-40-34-40-70s22-46 40-70z' fill='none' stroke='%23C9A45C' stroke-opacity='.07' stroke-width='2'/%3E%3Ccircle cx='60' cy='80' r='6' fill='%23C9A45C' fill-opacity='.06'/%3E%3C/svg%3E"),var(--wall)}
 /* darkness + candle light following cursor */
-#dark{position:fixed;inset:0;pointer-events:none;z-index:40;background:radial-gradient(circle 260px at var(--x,50%) var(--y,50%),rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.93) 100%);transition:background .1s}
+#dark{position:fixed;inset:0;pointer-events:none;z-index:40;background:
+  radial-gradient(circle 320px at var(--x,50%) var(--y,50%),rgba(255,190,120,.12) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,.62) 52%,rgba(0,0,0,.96) 100%);
+  mix-blend-mode:normal}
 #candle{position:fixed;z-index:60;pointer-events:none;width:22px;height:60px;margin:-50px 0 0 -11px}
 #candle::before{content:"";position:absolute;left:4px;top:0;width:14px;height:26px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 70%,#fff8d8,#ffcc55 40%,#ff7a1a 70%,transparent 72%);filter:blur(.5px);animation:flick .15s infinite alternate;box-shadow:0 0 40px 10px rgba(255,170,60,.35)}
 #candle::after{content:"";position:absolute;left:6px;top:26px;width:10px;height:34px;background:linear-gradient(90deg,#d9cdb0,#fff4dc,#c8bb9c);border-radius:2px}
@@ -49,7 +51,14 @@ canvas#dust{position:fixed;inset:0;pointer-events:none;z-index:45}
 .canvas img{width:100%;height:100%;object-fit:cover;transition:filter 1.6s ease,transform 1.6s ease;filter:url(#oil) sepia(.55) contrast(1.15) brightness(.72) saturate(.8)}
 .canvas::after{content:"";position:absolute;inset:0;background:radial-gradient(circle,transparent 40%,rgba(20,10,0,.65));pointer-events:none;mix-blend-mode:multiply}
 .canvas .cr{position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.6' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .15 0 0 0 0 .05 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");mix-blend-mode:overlay;opacity:.7;pointer-events:none}
-.p:hover .canvas img,.p.alive .canvas img{filter:none;transform:scale(1.05)}
+.p:hover .canvas img,.p.alive .canvas img{filter:none;transform:scale(1.07);transition:filter 1s ease,transform 1s ease}
+.p.alive .frame{box-shadow:0 30px 60px rgba(0,0,0,.8),0 0 40px rgba(255,170,60,.25),inset 0 0 0 3px #3b2a10,inset 0 0 0 8px rgba(0,0,0,.25)}
+.p.alive .plate{background:linear-gradient(#f0d08a,#b8893a);transform:translateY(-2px);transition:transform .4s,background .4s}
+.p .eyes{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .8s;background:
+  radial-gradient(circle at 38% 42%,rgba(180,20,20,.55) 0 2px,transparent 3px),
+  radial-gradient(circle at 62% 42%,rgba(180,20,20,.55) 0 2px,transparent 3px)}
+.p.alive .eyes{opacity:1;animation:blink 3.5s infinite}
+@keyframes blink{0%,92%,100%{opacity:1}94%,96%{opacity:0}}
 .plate{margin:20px auto 0;width:max-content;max-width:100%;padding:8px 20px;background:linear-gradient(#e0c27d,#9b7a3a);color:#2b1d08;font:600 13px/1.3 'Cormorant SC';letter-spacing:.2em;text-align:center;box-shadow:0 6px 14px rgba(0,0,0,.6)}
 .plate i{display:block;font:italic 400 12px 'Cormorant Garamond';letter-spacing:.05em}
 @media(max-width:900px){.hall{grid-template-columns:1fr 1fr}.hall .p:nth-child(n){margin-top:0}}
@@ -82,12 +91,12 @@ canvas#dust{position:fixed;inset:0;pointer-events:none;z-index:45}
   <section class="story"><p>Говорят, леди Элеонора до сих пор<br>ходит по <b>верхнему залу</b> каждую ночь.</p></section>
 
   <section class="hall">
-    <div class="p"><div class="frame"><div class="canvas"><img src="img/avatar.jpg" alt=""><div class="cr"></div></div></div><div class="plate">Леди Элеонора<i>масло, холст · 1824</i></div></div>
-    <div class="p"><div class="frame"><div class="canvas"><img src="img/cream-suit.jpg" alt=""><div class="cr"></div></div></div><div class="plate">Хозяйка дома<i>масло, холст · 1830</i></div></div>
-    <div class="p"><div class="frame"><div class="canvas"><img src="img/close.jpg" alt=""><div class="cr"></div></div></div><div class="plate">Портрет в саду<i>масло, холст · 1836</i></div></div>
-    <div class="p"><div class="frame"><div class="canvas"><img src="img/red-suit.jpg" alt=""><div class="cr"></div></div></div><div class="plate">Дама в алом<i>масло, холст · 1841</i></div></div>
-    <div class="p"><div class="frame"><div class="canvas"><img src="img/coffee.jpg" alt=""><div class="cr"></div></div></div><div class="plate">Утренняя прогулка<i>масло, холст · 1847</i></div></div>
-    <div class="p"><div class="frame"><div class="canvas"><img src="img/rooftop.jpg" alt=""><div class="cr"></div></div></div><div class="plate">Над городом<i>масло, холст · 1852</i></div></div>
+    <div class="p"><div class="frame"><div class="canvas"><img src="img/avatar.jpg" alt=""><div class="cr"></div><div class="eyes"></div></div></div><div class="plate">Леди Элеонора<i>масло, холст · 1824</i></div></div>
+    <div class="p"><div class="frame"><div class="canvas"><img src="img/cream-suit.jpg" alt=""><div class="cr"></div><div class="eyes"></div></div></div><div class="plate">Хозяйка дома<i>масло, холст · 1830</i></div></div>
+    <div class="p"><div class="frame"><div class="canvas"><img src="img/close.jpg" alt=""><div class="cr"></div><div class="eyes"></div></div></div><div class="plate">Портрет в саду<i>масло, холст · 1836</i></div></div>
+    <div class="p"><div class="frame"><div class="canvas"><img src="img/red-suit.jpg" alt=""><div class="cr"></div><div class="eyes"></div></div></div><div class="plate">Дама в алом<i>масло, холст · 1841</i></div></div>
+    <div class="p"><div class="frame"><div class="canvas"><img src="img/coffee.jpg" alt=""><div class="cr"></div><div class="eyes"></div></div></div><div class="plate">Утренняя прогулка<i>масло, холст · 1847</i></div></div>
+    <div class="p"><div class="frame"><div class="canvas"><img src="img/rooftop.jpg" alt=""><div class="cr"></div><div class="eyes"></div></div></div><div class="plate">Над городом<i>масло, холст · 1852</i></div></div>
   </section>
 
   <section class="story"><p>Она искала свою дочь в каждой комнате.<br>Но <b>так и не нашла</b> выхода.</p></section>
@@ -107,10 +116,14 @@ addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY});
 addEventListener('touchmove',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
 (function loop(){x+=(tx-x)*.18;y+=(ty-y)*.18;const fl=Math.random()*14;
   dark.style.setProperty('--x',x+'px');dark.style.setProperty('--y',y+'px');
-  dark.style.background=`radial-gradient(circle ${250+fl}px at ${x}px ${y}px,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.93) 100%)`;
+  const R=300+fl*2;
+  dark.style.background=`radial-gradient(circle ${R}px at ${x}px ${y}px,rgba(255,200,130,.16) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,.58) 50%,rgba(0,0,0,.97) 100%)`;
   candle.style.transform=`translate(${x}px,${y}px)`;
-  // wake portraits near the candle
-  document.querySelectorAll('.hall .p').forEach(p=>{const r=p.getBoundingClientRect();const d=Math.hypot(r.left+r.width/2-x,r.top+r.height/2-y);p.classList.toggle('alive',d<r.width*.45)});
+  document.querySelectorAll('.hall .p').forEach(p=>{
+    const r=p.getBoundingClientRect();
+    const d=Math.hypot(r.left+r.width/2-x,r.top+r.height/2-y);
+    p.classList.toggle('alive',d<Math.max(r.width*.55,220));
+  });
   requestAnimationFrame(loop)})();
 if(matchMedia('(hover:none)').matches)dark.style.display='none';
 // story reveal
